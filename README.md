@@ -120,7 +120,7 @@ As you can see in the example above, you can use one of these methods to return 
 
 If you wish to restrict access to a component you can wrap the component in `<AuthorizeFor>`:
 
-```
+```JSX
 <AuthorizedFor roles={['admin']}>
     <AdminTable/>
 </AuthorizedFor>
@@ -130,7 +130,7 @@ In case you need to select a correct state of a component or display different c
 on their roles use wrap them in `<AuthorizedForFirst>` and `<Matching>`>. It will display only the 1st `<Matching>` that 
 has the correct roles.
 
-```
+```JSX
 <AuthorizedForFirst>
     <Matching roles={['user, admin']}><UserAdminTable></Matching>
     <Matching roles={['admin']}><AdminTable></Matching>
@@ -145,7 +145,7 @@ them with `this.userRoles` in your own inherited component as described above al
 
 In your code extend `AuthorizedForFirst` and `AuthorizedFor` classes:
 
-```
+```JavaScript
 import React from 'react';
 import { AuthorizedForFirst } from 'react-router-role-authorization';
 
@@ -162,7 +162,7 @@ class OurAuthorizedForFirst extends AuthorizedForFirst {
 
 and
 
-```
+```JavaScript 
 import React from 'react';
 import { AuthorizedFor } from 'react-router-role-authorization';
 
