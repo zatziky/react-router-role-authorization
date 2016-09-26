@@ -115,3 +115,71 @@ But this is not all. The component provides two methods: `this.rolesMatched` and
 - `this.rolesMatchedExact` checks if the available roles array has exactly the same items as the user roles array.
 
 As you can see in the example above, you can use one of these methods to return the markup of the component or just `null`.
+
+### Decorators - Usage
+
+If you wish to restrict access to a component you can wrap the component in `<AuthorizeFor>`:
+
+```
+<AuthorizedFor roles={['admin']}>
+    <AdminTable/>
+</AuthorizedFor>
+```
+
+In case you need to select a correct state of a component or display different components based 
+on their roles use wrap them in `<AuthorizedForFirst>` and `<Matching>`>. It will display only the 1st `<Matching>` that 
+has the correct roles.
+
+```
+<AuthorizedForFirst>
+    <Matching roles={['user, admin']}><UserAdminTable></Matching>
+    <Matching roles={['admin']}><AdminTable></Matching>
+    <Matching roles={['user']}><ReadOnlyTable></Matching>
+</AuthorizedForFirst>
+```
+
+### Decorators - Setup
+
+To setup `<AuthorizedForFirst>` and `<AuthorizedFor>` you'll need to provide
+them with `this.userRoles` in your own inherited component as described above already.
+
+In your code extend `AuthorizedForFirst` and `AuthorizedFor` classes:
+
+```
+import React from 'react';
+import { AuthorizedForFirst } from 'react-router-role-authorization';
+
+class OurAuthorizedForFirst extends AuthorizedForFirst {
+    
+    constructor(props) {
+        super(props);
+            
+        this.userRoles = /* Provide your mean to get the roles*/;
+      }
+
+}
+```
+
+and
+
+```
+import React from 'react';
+import { AuthorizedFor } from 'react-router-role-authorization';
+
+class OurAuthorizedFor extends AuthorizedForFirst {
+    
+    constructor(props) {
+        super(props);
+            
+        this.userRoles = /* Provide your mean to get the roles*/;
+      }
+
+}
+```
+
+
+
+
+
+
+
